@@ -330,6 +330,9 @@ function App() {
   if (view === 'LOGIN') {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+        <h2 className="text-2xl md:text-3xl font-bold text-blue-600 mb-6 text-center">
+          Welcome to Culture Advisory Platform
+        </h2>
         <div className="max-w-xl w-full bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-primary p-8 text-center">
             <h1 className="text-3xl font-extrabold text-red-500 mb-2">CultureAdvisory.org</h1>
