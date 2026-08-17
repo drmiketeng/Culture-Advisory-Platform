@@ -37,6 +37,7 @@ function App() {
   const [staffSubmissions, setStaffSubmissions] = useState<Submission[]>([]);
 
   // User Auth & Context
+  const [accessCode, setAccessCode] = useState('');
   const [email, setEmail] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [view, setView] = useState<ViewState>('LOGIN');
@@ -91,12 +92,16 @@ function App() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && termsAccepted) {
+    if (accessCode.trim().toUpperCase() === 'CTC' && termsAccepted) {
+      const randomNum = Math.floor(100000 + Math.random() * 900000);
+      const dummyEmail = `session-${randomNum}@anonymous.local`;
+      setEmail(dummyEmail);
       setView('ONBOARDING');
     }
   };
 
   const handleLogout = () => {
+    setAccessCode('');
     setEmail('');
     setTermsAccepted(false);
     setLeaderAnswers([]);
@@ -345,14 +350,30 @@ function App() {
             </p>
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@organization.com" className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-accent outline-none" />
+                <p className="text-sm font-semibold text-slate-700 mb-2">
+                  To verify you are human and to access the tool anonymously, please enter the access code: <span className="font-bold text-accent">CTC</span>
+                </p>
+                <label htmlFor="accessCode" className="block text-sm font-medium text-slate-700 mb-1">
+                  Access Code
+                </label>
+                <input
+                  id="accessCode"
+                  type="text"
+                  required
+                  value={accessCode}
+                  onChange={(e) => setAccessCode(e.target.value)}
+                  placeholder="Enter CTC"
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-accent outline-none uppercase font-mono tracking-wider"
+                />
+                <p className="mt-3 text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-200">
+                  <strong className="text-slate-800">Confidentiality:</strong> Corporate Turnaround Centre does not read, store, or monitor your submissions. All diagnostic simulations are fully anonymous to protect your privacy and strategic data.
+                </p>
               </div>
               <div className="flex items-start">
                 <div className="flex items-center h-5"><input id="terms" type="checkbox" required checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} className="h-4 w-4 text-accent border-gray-300 rounded" /></div>
                 <div className="ml-3 text-sm"><label htmlFor="terms" className="font-medium text-slate-700">Terms of Service</label><p className="text-slate-500">I agree that the insights provided are AI-generated for advisory purposes and do not constitute legal or binding financial advice.</p></div>
               </div>
-              <button type="submit" disabled={!email || !termsAccepted} className="w-full py-3 bg-primary text-white rounded-xl font-bold shadow-lg hover:bg-slate-800 disabled:opacity-50 transition-all">Sign In</button>
+              <button type="submit" disabled={accessCode.trim().toUpperCase() !== 'CTC' || !termsAccepted} className="w-full py-3 bg-primary text-white rounded-xl font-bold shadow-lg hover:bg-slate-800 disabled:opacity-50 transition-all">Submit &amp; Enter</button>
             </form>
           </div>
         </div>
