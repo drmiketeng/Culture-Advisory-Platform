@@ -339,7 +339,7 @@ function App() {
         <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-10">
           <a
             id="watch-video-link"
-            href="https://www.youtube.com/watch?v=Vv-S-rVPKJ8"
+            href="https://www.youtube.com/watch?v=3qlzjlDVRl8"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
