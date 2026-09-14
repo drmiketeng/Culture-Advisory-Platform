@@ -5,6 +5,7 @@ import { Question, Answer, TransformationPhase, ReportMode, ReportData, UserRole
 import { generateCultureReport, generatePrayerAudio } from './services/geminiService';
 import { Assistant } from './components/Assistant';
 import { Footer } from './components/Footer';
+import { Analytics } from '@vercel/analytics/react';
 
 // Icons
 const CheckCircle = () => <svg className="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
@@ -840,6 +841,7 @@ function App() {
         </main>
         <Footer />
         <Assistant />
+        <Analytics />
       </div>
     );
   }
