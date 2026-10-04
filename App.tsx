@@ -388,7 +388,7 @@ function App() {
               </div>
               <div className="flex items-start">
                 <div className="flex items-center h-5"><input id="terms" type="checkbox" required checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} className="h-4 w-4 text-accent border-gray-300 rounded" /></div>
-                <div className="ml-3 text-sm"><label htmlFor="terms" className="font-medium text-slate-700">Terms of Service</label><p className="text-slate-500">I agree that the insights provided are AI-generated for advisory purposes and do not constitute legal or binding financial advice.</p></div>
+                <div className="ml-3 text-sm"><label htmlFor="terms" className="font-medium text-red-600">Terms of Service</label><p className="text-slate-500">I agree that the insights provided are AI-generated for advisory purposes and do not constitute legal or binding financial advice.</p></div>
               </div>
               <button type="submit" disabled={accessCode.trim().toUpperCase() !== 'CTC' || !termsAccepted} className="w-full py-3 bg-primary text-white rounded-xl font-bold shadow-lg hover:bg-slate-800 disabled:opacity-50 transition-all">Submit &amp; Enter</button>
             </form>
