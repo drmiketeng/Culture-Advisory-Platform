@@ -363,7 +363,7 @@ function App() {
           </div>
           <div className="p-8">
             <p className="text-slate-600 mb-6 text-sm leading-relaxed text-justify">
-              Welcome to the Culture Advisory AI System, a pioneering diagnostic tool designed to bridge the invisible divide between leadership strategic intent and organizational reality. In times of transformation—whether performing 'Surgery' on financial bleeding, 'Resuscitating' market presence, or undergoing 'Therapy' for cultural alignment—misalignment can be fatal. This system utilizes advanced AI to analyze disparate perspectives, identifying critical gaps in perception that hinder progress. By synthesizing anonymous staff feedback with leadership vision, we provide not just a score, but a roadmap for alignment, offering both secular strategic counsel and optional spiritual wisdom to guide your organization toward unity and health.
+              Welcome to the Culture Advisory Platform, a pioneering diagnostic tool designed to bridge the invisible divide between leadership strategic intent and organizational reality. In times of transformation—whether performing 'Surgery' on financial bleeding, 'Resuscitating' market presence, or undergoing 'Therapy' for cultural alignment—misalignment can be fatal. This system utilizes advanced AI to analyze disparate perspectives, identifying critical gaps in perception that hinder progress. By synthesizing anonymous staff feedback with leadership vision, we provide not just a score, but a roadmap for alignment, offering both secular strategic counsel and optional spiritual wisdom to guide your organization toward unity and health.
             </p>
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
