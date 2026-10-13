@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { QUESTIONS, DEMO_DATA } from './constants';
 import { Question, Answer, TransformationPhase, ReportMode, ReportData, UserRole, Submission } from './types';
-import { generateCultureReport, generatePrayerAudio } from './services/geminiService';
+import { generateCultureReport, generatePrayerAudio, cleanPrayerText } from './services/geminiService';
 import { Assistant } from './components/Assistant';
 import { Footer } from './components/Footer';
 import { Analytics } from '@vercel/analytics/react';
@@ -247,7 +247,7 @@ function App() {
       
       if (mode === ReportMode.FAITH && data.prayerContent) {
         setIsGeneratingAudio(true);
-        generatePrayerAudio(data.prayerContent)
+        generatePrayerAudio(cleanPrayerText(data.prayerContent))
           .then(url => setAudioUrl(url))
           .catch(err => console.error("Audio gen failed", err))
           .finally(() => setIsGeneratingAudio(false));
@@ -788,7 +788,7 @@ function App() {
                   )}
                   {report.prayerContent ? (
                     <div className={`prose max-w-3xl mx-auto ${mode === ReportMode.FAITH ? 'prose-amber' : 'prose-slate'}`}>
-                      <div className="whitespace-pre-line text-slate-700 leading-relaxed text-justify font-serif italic">{report.prayerContent}</div>
+                      <div className="whitespace-pre-line text-slate-700 leading-relaxed text-justify font-serif italic">{cleanPrayerText(report.prayerContent)}</div>
                     </div>
                   ) : <div className="text-center text-slate-400 py-10">Generating content...</div>}
                 </div>

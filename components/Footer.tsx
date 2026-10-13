@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-bold text-slate-700 mb-1">Corporate Turnaround Centre Pte Ltd</h4>
             <p>
-              An AI Powerhouse democratizing elite turnaround strategy anywhere, anytime. Incorporated in 2008. 
+              An AI Powerhouse democratizing elite turnaround strategy anywhere, anytime. Incorporated in 2004. 
               Corporate Turnaround Centre and all its associated platforms provide management consultancy information 
               for educational use only and are not a licensed financial advisor.
             </p>

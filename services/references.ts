@@ -54,7 +54,7 @@ BOOK 5: "What we can learn from the animals about office politics"
 - ANIMAL METAPHORS:
   - Lion: King of jungle, strength. Good for Surgery.
   - Monkey: Social, teams. Good for Resuscitation.
-  - Eagle/Bear/Beaver: Long-term thinkers. Good for Nursing/Therapy.
+  - Eagle/Bear/Beaver: Long-term thinkers. Good for Therapy.
   - Chameleon: Adaptability.
   - Snake: Unethical, solitary. (Negative).
   - Hyena: Scavenger.

@@ -168,10 +168,16 @@ export const generateCultureReport = async (
   - **References**: Use Dr. Teng's "Office Politics: Biblical perspective". Cite Biblical scriptures.
   - **Anonymity**: Do NOT use the user's name. Use "this leader", "this organization".
   - **MANDATORY CLOSING**: "We pray all these in the name of Jesus Christ, Amen."
+  - **CRITICAL PRAYER RULES**:
+    - DO NOT include ANY scores, scores ratio (e.g. do NOT write "${calculatedScore}/100" or any score number), percentages, or numbers in the prayer. Keep all scores strictly out of the prayer.
+    - DO NOT use markdown symbols or asterisks (such as **bold** or *italic*). Output clean plain text only with NO ** symbols.
   ` : `
   - **MODE: SECULAR**
   - **Content**: Write a ~400 word "Leadership Reflection" or "Manifesto".
   - **Focus**: A secular meditation on the responsibilities of leadership based on the findings.
+  - **CRITICAL REFLECTION RULES**:
+    - DO NOT include any scores or numbers like "${calculatedScore}/100". Keep scores out.
+    - DO NOT use markdown symbols (no ** symbols).
   `}
   `;
 
@@ -185,7 +191,7 @@ export const generateCultureReport = async (
       therapyAnalysis: { type: Type.STRING, description: "Detailed analysis for Phase 3 (Therapy) in Markdown. MUST BE POPULATED." },
       conclusion: { type: Type.STRING, description: "Final thoughts and roadmap in Markdown." },
       prayerTitle: { type: Type.STRING, description: isFaith ? "Title for the prayer" : "Title for reflection" },
-      prayerContent: { type: Type.STRING, description: "The ~700 word Prayer (Faith) or ~400 word Reflection (Secular). THIS FIELD IS MANDATORY." },
+      prayerContent: { type: Type.STRING, description: "The ~700 word Prayer (Faith) or ~400 word Reflection (Secular). Pure plain text without any markdown ** symbols or scores. THIS FIELD IS MANDATORY." },
     },
     required: ["gapScore", "executiveSummary", "surgeryAnalysis", "resuscitationAnalysis", "therapyAnalysis", "conclusion", "prayerContent", "prayerTitle"]
   };
@@ -205,13 +211,35 @@ export const generateCultureReport = async (
   const text = response.text;
   if (!text) throw new Error("No response from AI");
   
-  return JSON.parse(text) as ReportData;
+  const report = JSON.parse(text) as ReportData;
+  if (report.prayerContent) {
+    report.prayerContent = cleanPrayerText(report.prayerContent);
+  }
+  if (report.prayerTitle) {
+    report.prayerTitle = cleanPrayerText(report.prayerTitle);
+  }
+  return report;
+};
+
+export const cleanPrayerText = (text: string): string => {
+  if (!text) return '';
+  return text
+    // Remove all ** and * markdown symbols
+    .replace(/\*{1,2}/g, '')
+    // Remove score ratios like 30/100, 30 / 100
+    .replace(/\b\d{1,3}\s*\/\s*100\b/g, '')
+    // Remove phrases mentioning scores like "score of 30", "alignment score: 30"
+    .replace(/\b(?:cultural\s+|alignment\s+)?score(?:\s+is|\s+of|:)?\s*\d{1,3}(?:\s*\/\s*100)?\b/gi, '')
+    // Clean up any double spaces left behind while preserving linebreaks
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
 };
 
 export const generatePrayerAudio = async (text: string): Promise<string> => {
-  if (audioCache.has(text)) {
+  const sanitizedText = cleanPrayerText(text);
+  if (audioCache.has(sanitizedText)) {
     console.log("Serving audio from cache");
-    return audioCache.get(text)!;
+    return audioCache.get(sanitizedText)!;
   }
 
   const ai = getAiClient();
